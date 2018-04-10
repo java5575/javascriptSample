@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <style type="text/css">
+        *{
+    padding:0;
+    margin:0;}
+
+.article {
+    width:500px;
+  color: #222;
+  background: rgba(255,255,255,1);
+  border-spacing: 2px;
+  border-color: gray;
+  font-family: arial,sans-serif;
+  border: 1px #e5e5e5 solid;
+  text-align:center;
+  cursor:pointer;
+}
+
+.current {
+  background: rgba(206,220,206,.9);
+}
+
+
+.description {
+    width:500px;
+  display: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color:white;
+}
+
+        
+        </style>
+        <script type="text/javascript">
+    $(function(){
+          $('.article').click(function() {
+    $('.article').not(this).removeClass('current');
+    $('.description').not(this).stop(true,false).slideUp();
+
+    $(this).toggleClass('current');
+    $(this).children('.description').stop(true,false).slideToggle();
+  });   
+        })
+        </script>
+
+  </head>
+  <body>
+    <div class="article">
+        <p class="title">Embraer adds third Legacy 500 prototype to flight test campaign</p>
+        <div class="description">
+            <h1>Embraer adds third Legacy 500 prototype to flight test campaign</h1>
+            <p>The third Legacy 500 has joined Embraer's flight test programme aimed at delivering the midsize business jet in 2014. The airtcraft, serial number 003...</p>
+    </div>
+        </div>
+    <div class="article">
+        <p class="title">Embraer adds third Legacy 500 prototype to flight test campaign</p>
+        <div class="description">
+            <h1>Embraer adds third Legacy 500 prototype to flight test campaign</h1>
+            <p>The third Legacy 500 has joined Embraer's flight test programme aimed at delivering the midsize business jet in 2014. The airtcraft, serial number 003...</p>
+    </div>
+        </div>
+
+  </body>
+</html>
