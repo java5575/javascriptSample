@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+
+<body>
+  <input type="text" id="text">
+  <input type="button" id="btn" value="輸入">
+  <ul id="list"></ul>
+  <script>
+    var list = document.getElementById("list");//ul
+    var btn = document.getElementById("btn");//按鈕
+    var text = document.getElementById("text");//輸入框
+    var dataList = [];//空陣列
+
+    list.addEventListener("click", deleteList, false);//點擊連結的刪除按鈕觸發刪除事件(事件代理)
+    btn.addEventListener("click", addList, false);//點擊按鈕觸發新增li事件
+    text.addEventListener("keypress", function (e) {//按下ENTER後觸發新增LI事件
+      if (e.keyCode == 13) {
+        addList()
+      }
+    }, false)
+
+    function updateList() {
+      var str = ""//建立一個空字串
+      //如果localStorage裡面是空的，回傳空陣列，不是就將字串轉為JSON格式回傳
+      dataList = (localStorage.getItem("dataName1") == null) ? [] : JSON.parse(localStorage.getItem("dataName1"));
+      //用for迴圈依序把dataList陣列裡的值取出
+      for (var i = 0; i < dataList.length; i++) {
+        str += "<li><a href='#' data-num=" + i + ">刪除</a>" + dataList[i] + "</li>"
+      }
+      //將存在str裡的字串輸出到html
+      list.innerHTML = str;
+    }
+    updateList();
+
+    function updateLocalstorage() {
+      //將陣列的資料轉成string儲存到localStorage
+      localStorage.setItem("dataName1", JSON.stringify(dataList))
+      //更新頁面
+      updateList();
+
+    }
+    function deleteList(e) {
+      //將目前點擊到的標籤裡的data-num的值純到num
+      var num = e.target.dataset.num;
+      //如果num大於等於0，將那個li刪除
+      if (num >= 0) {
+        dataList.splice(num, 1);
+        //更新localstorage
+        updateLocalstorage();
+      }
+
+    }
+    //新增li
+    function addList() {
+      //將輸入框內的值存到value變數
+      var value = text.value;
+      //如果輸入框裡面有值，將值存到dataList的最後一個，更新localStorage並將輸入框的值清除
+      if (value != "") {
+        dataList.push(value);
+        updateLocalstorage();
+        text.value = "";
+      }
+    }
+  </script>
+</body>
+
+</html>
